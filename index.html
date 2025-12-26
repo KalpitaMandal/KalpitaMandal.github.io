@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalpita Mandal - Blockchain Protocol Engineer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated background particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: rgba(99, 179, 237, 0.6);
+            border-radius: 50%;
+            animation: float 20s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(50px);
+                opacity: 0;
+            }
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 30px rgba(0,0,0,0.1);
+            animation: slideDown 0.5s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s;
+        }
+
+        .logo:hover::after {
+            width: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: #667eea;
+            transition: width 0.3s, left 0.3s;
+        }
+
+        .nav-links a:hover::before {
+            width: 100%;
+            left: 0;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 8rem 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .hero-text .greeting {
+            font-size: 1.2rem;
+            color: #63b3ed;
+            margin-bottom: 0.5rem;
+            animation: fadeInLeft 0.8s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff 0%, #e0e7ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInLeft 0.8s ease-out 0.2s both;
+        }
+
+        .hero .title {
+            font-size: 1.5rem;
+            color: #a0aec0;
+            margin-bottom: 1.5rem;
+            animation: fadeInLeft 0.8s ease-out 0.4s both;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #cbd5e0;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            animation: fadeInLeft 0.8s ease-out 0.6s both;
+        }
+
+        .tech-badges {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            animation: fadeInLeft 0.8s ease-out 0.8s both;
+        }
+
+        .badge {
+            padding: 0.5rem 1rem;
+            background: rgba(99, 179, 237, 0.15);
+            border: 1px solid rgba(99, 179, 237, 0.3);
+            border-radius: 20px;
+            color: #63b3ed;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .badge:hover {
+            background: rgba(99, 179, 237, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            animation: fadeInLeft 0.8s ease-out 1s both;
+        }
+
+        .cta-button {
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            border: 2px solid #667eea;
+            color: #63b3ed;
+        }
+
+        .cta-button.secondary:hover {
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .hero-visual {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            justify-content: center;
+            animation: fadeInRight 1s ease-out 0.4s both;
+        }
+
+        .code-window {
+            width: 400px;
+            background: rgba(26, 32, 44, 0.9);
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            overflow: hidden;
+            border: 1px solid rgba(99, 179, 237, 0.2);
+        }
+
+        .window-header {
+            background: rgba(45, 55, 72, 0.9);
+            padding: 0.8rem;
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .window-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; animation-delay: 0.2s; }
+        .dot-green { background: #27c93f; animation-delay: 0.4s; }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .window-content {
+            padding: 1.5rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: #a0aec0;
+            line-height: 1.6;
+        }
+
+        .code-line {
+            opacity: 0;
+            animation: typeLine 0.5s forwards;
+        }
+
+        .code-line:nth-child(1) { animation-delay: 1.2s; }
+        .code-line:nth-child(2) { animation-delay: 1.4s; }
+        .code-line:nth-child(3) { animation-delay: 1.6s; }
+        .code-line:nth-child(4) { animation-delay: 1.8s; }
+        .code-line:nth-child(5) { animation-delay: 2s; }
+        .code-line:nth-child(6) { animation-delay: 2.2s; }
+        .code-line:nth-child(7) { animation-delay: 2.4s; }
+        .code-line:nth-child(8) { animation-delay: 2.6s; }
+
+        @keyframes typeLine {
+            to { opacity: 1; }
+        }
+
+        .keyword { color: #c792ea; }
+        .function { color: #82aaff; }
+        .string { color: #c3e88d; }
+        .comment { color: #546e7a; }
+
+        .projects-section {
+            background: white;
+            padding: 6rem 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            color: #1a202c;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #718096;
+            margin-bottom: 4rem;
+            font-size: 1.1rem;
+        }
+
+        .projects-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            border: 2px solid transparent;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .project-card:nth-child(1) { animation-delay: 0.1s; }
+        .project-card:nth-child(2) { animation-delay: 0.2s; }
+        .project-card:nth-child(3) { animation-delay: 0.3s; }
+        .project-card:nth-child(4) { animation-delay: 0.4s; }
+        .project-card:nth-child(5) { animation-delay: 0.5s; }
+        .project-card:nth-child(6) { animation-delay: 0.6s; }
+
+        .project-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.25);
+            border-color: #667eea;
+        }
+
+        .project-image {
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-image::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s;
+        }
+
+        .project-card:hover .project-image::before {
+            left: 100%;
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            color: #1a202c;
+            font-weight: 700;
+        }
+
+        .project-description {
+            color: #4a5568;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .tag {
+            padding: 0.4rem 1rem;
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #667eea;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .tag:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .project-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s;
+        }
+
+        .project-link:hover {
+            gap: 1rem;
+        }
+
+        footer {
+            background: #1a202c;
+            color: white;
+            text-align: center;
+            padding: 3rem 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            color: #cbd5e0;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .social-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #63b3ed;
+            transition: width 0.3s;
+        }
+
+        .social-links a:hover::after {
+            width: 100%;
+        }
+
+        .social-links a:hover {
+            color: #63b3ed;
+            transform: translateY(-3px);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-content {
+                gap: 2rem;
+            }
+
+            .code-window {
+                width: 100%;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+
+    <header>
+        <nav>
+            <div class="logo">Kalpita Mandal</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="greeting">👋 Hello, I'm</div>
+                <h1>Kalpita Mandal</h1>
+                <div class="title">Blockchain Protocol Engineer</div>
+                <p>Specializing in zero-knowledge systems, distributed infrastructure, and smart contract security. Core engineer at Marlin Protocol building Kalypso ZK marketplace. Currently sharpening my ZK skills through RareSkills' bootcamp.</p>
+                
+                <div class="tech-badges">
+                    <span class="badge">zkSNARKs</span>
+                    <span class="badge">Rust</span>
+                    <span class="badge">Solidity</span>
+                    <span class="badge">Circom</span>
+                    <span class="badge">RISC0</span>
+                </div>
+
+                <div class="cta-buttons">
+                    <a href="#projects" class="cta-button">View Projects</a>
+                    <a href="#contact" class="cta-button secondary">Get In Touch</a>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="code-window">
+                    <div class="window-header">
+                        <div class="window-dot dot-red"></div>
+                        <div class="window-dot dot-yellow"></div>
+                        <div class="window-dot dot-green"></div>
+                    </div>
+                    <div class="window-content">
+                        <div class="code-line"><span class="comment">// Sharpening the saw 🔨</span></div>
+                        <div class="code-line"><span class="keyword">const</span> learning = [</div>
+                        <div class="code-line">  <span class="string">"ZK Bootcamp"</span>,</div>
+                        <div class="code-line">  <span class="string">"Plonky2"</span>,</div>
+                        <div class="code-line">  <span class="string">"Halo2"</span>,</div>
+                        <div class="code-line">].<span class="function">forEach</span>(skill => </div>
+                        <div class="code-line">  <span class="function">master</span>(skill)</div>
+                        <div class="code-line">);</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="projects-section">
+        <h2 class="section-title">Featured Work</h2>
+        <p class="section-subtitle">Core contributions & learning journey</p>
+        
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-image">⚡</div>
+                <div class="project-content">
+                    <h3 class="project-title">Kalypso ZK Marketplace</h3>
+                    <p class="project-description">Trustless orderbook-based marketplace connecting specialized hardware operators with ZK applications. Built matching engine, slashing mechanisms, and operator management for 30+ institutional generators managing $20M+ stake.</p>
+                    <div class="project-tags">
+                        <span class="tag">Rust</span>
+                        <span class="tag">Solidity</span>
+                        <span class="tag">RISC0</span>
+                        <span class="tag">Aleo</span>
+                    </div>
+                    <a href="https://kalypso.org" class="project-link">Visit Kalypso →</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">🔍</div>
+                <div class="project-content">
+                    <h3 class="project-title">Smart Contract Security</h3>
+                    <p class="project-description">Identified 20+ vulnerabilities across competitive audits and internal reviews. Notable findings in protocols managing $600K+ TVL (Jpeg'd), $115M+ (Aura Finance), with multiple critical/high-severity discoveries.</p>
+                    <div class="project-tags">
+                        <span class="tag">Security</span>
+                        <span class="tag">Auditing</span>
+                        <span class="tag">Foundry</span>
+                        <span class="tag">Code4rena</span>
+                    </div>
+                    <a href="#" class="project-link">View audits →</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">🎓</div>
+                <div class="project-content">
+                    <h3 class="project-title">RareSkills ZK Bootcamp</h3>
+                    <p class="project-description">Deep-diving into advanced zero-knowledge cryptography, proof systems, and zkVM architectures. Building open source contributions and exploring cutting-edge ZK primitives.</p>
+                    <div class="project-tags">
+                        <span class="tag">Plonky2</span>
+                        <span class="tag">Halo2</span>
+                        <span class="tag">Circom</span>
+                        <span class="tag">Learning</span>
+                    </div>
+                    <a href="#" class="project-link">Course work →</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">📚</div>
+                <div class="project-content">
+                    <h3 class="project-title">Certifications</h3>
+                    <p class="project-description">Cryptography I (Stanford/Coursera) - Formal foundations in cryptographic primitives, protocols, and security proofs essential for blockchain systems.</p>
+                    <div class="project-tags">
+                        <span class="tag">Cryptography</span>
+                        <span class="tag">Stanford</span>
+                        <span class="tag">Theory</span>
+                    </div>
+                    <a href="#" class="project-link">View credentials →</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">🛡️</div>
+                <div class="project-content">
+                    <h3 class="project-title">AATBA Identity System | ETHOnline</h3>
+                    <p class="project-description">Secure online identity leveraging Token Bound Accounts for verifiable credentials. Winner of ETHOnline Scroll bounty for innovative identity architecture.</p>
+                    <div class="project-tags">
+                        <span class="tag">Scroll</span>
+                        <span class="tag">TBA</span>
+                        <span class="tag">Identity</span>
+                        <span class="tag">ETHOnline</span>
+                    </div>
+                    <a href="#" class="project-link">Learn more →</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">🏛️</div>
+                <div class="project-content">
+                    <h3 class="project-title">TotalRecall RWA | ETHIndia</h3>
+                    <p class="project-description">Recallable Real World Asset tokens enabling fractional ownership and liquidity for real estate and art. ETHIndia pool prize winner.</p>
+                    <div class="project-tags">
+                        <span class="tag">RWA</span>
+                        <span class="tag">Scroll</span>
+                        <span class="tag">DeFi</span>
+                        <span class="tag">ETHIndia</span>
+                    </div>
+                    <a href="#" class="project-link">Learn more →</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">🔒</div>
+                <div class="project-content">
+                    <h3 class="project-title">Armor Wallet | ETHIndia Fellowship</h3>
+                    <p class="project-description">ERC-4337 bundler prototype with inherent frontrunning and sandwich MEV protection. Built during ETHIndia Fellowship 3.0 to enhance transaction security.</p>
+                    <div class="project-tags">
+                        <span class="tag">MEV</span>
+                        <span class="tag">ERC-4337</span>
+                        <span class="tag">Security</span>
+                        <span class="tag">Fellowship</span>
+                    </div>
+                    <a href="#" class="project-link">Learn more →</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">🌊</div>
+                <div class="project-content">
+                    <h3 class="project-title">Remora Protocol | FVM Space Warp</h3>
+                    <p class="project-description">Under-collateralized lending protocol enabling Filecoin storage providers to borrow $FIL and share block rewards with investors, lowering barrier to entry for SPs.</p>
+                    <div class="project-tags">
+                        <span class="tag">Filecoin</span>
+                        <span class="tag">DeFi</span>
+                        <span class="tag">Lending</span>
+                        <span class="tag">FVM</span>
+                    </div>
+                    <a href="#" class="project-link">Learn more →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="social-links">
+            <a href="#">GitHub</a>
+            <a href="#">LinkedIn</a>
+            <a href="#">Twitter</a>
+            <a href="#">Telegram</a>
+        </div>
+        <p>&copy; 2025 Kalpita Mandal. Building the decentralized future.</p>
+    </footer>
+
+    <script>
+        // Generate floating particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 20 + 's';
+            particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
